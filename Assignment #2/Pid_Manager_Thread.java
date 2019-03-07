@@ -1,9 +1,5 @@
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import static java.lang.Thread.currentThread;
-
 public class Pid_Manager_Thread implements Runnable {
-    public int pidThreadID;
+    private int pidThreadID;
     private int pidThreadSleepTime;
     private Pid_Manager pidManager;
 
@@ -15,12 +11,14 @@ public class Pid_Manager_Thread implements Runnable {
         System.out.println("Creating Thread " + this.pidThreadID);
     }
 
+    @Override
     public void run() {
-        System.out.println("Running Thread " + currentThread().getName());
+
+        System.out.println("Running Thread " + this.pidThreadID);
 
         Integer pidID = pidManager.allocate_pid();
 
-        while (pidID = -1) {
+        while (pidID == -1) {
             System.out.println("All pids currently in use. Attempting to reallocate...");
             pidID = pidManager.allocate_pid();
         }
@@ -28,10 +26,10 @@ public class Pid_Manager_Thread implements Runnable {
         try {
             Thread.sleep(pidThreadSleepTime);                                 
         } catch (InterruptedException e) {
-            System.out.println("Interrupting Thread " + currentThread().getName());
+            System.out.println("Interrupting Thread " + this.pidThreadID);
         }
 
         pidManager.release_pid(pidID);
-        System.out.println("Stopping Thread " + currentThread().getName());
+        System.out.println("Stopping Thread " + this.pidThreadID);
     }
 }
