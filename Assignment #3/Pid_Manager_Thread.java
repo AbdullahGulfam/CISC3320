@@ -31,8 +31,8 @@ public class Pid_Manager_Thread implements Runnable {
     //  Allows thread to run and perform task
     @Override
     public void run() {
+        //  Thread locks pidManager for use until it finishes
         pidThreadLock.lock();
-
         try {
             System.out.println("Running Thread " + this.pidThreadID);
 
@@ -56,6 +56,7 @@ public class Pid_Manager_Thread implements Runnable {
             pidManager.release_pid(pidID);
             System.out.println("Stopping Thread " + this.pidThreadID);
         } finally {
+            // Thread releases pidManager from use
             pidThreadLock.unlock();
         }
     }
