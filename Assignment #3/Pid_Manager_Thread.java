@@ -1,7 +1,8 @@
 /*
 *   Create a multithreaded program that tests the program originally created in Assignment #1.    
 *   Create several threads (see Pid_Manager_Multithread), make them each request a pid, put them each to sleep for a random duration of time, and finally release the pid.
-*   
+*   Added mutex locks to ensure pidManager is safe from race conditions.
+*
 *   Author(s):  Abdullah Gulfam and Faris Kurtagic 
 *                Abdullah was responsible for implementation of the Pid_Manager_Thread file and documentation.
 *                Faris was responsible for implementation of the Pid_Manager_Multithread file.
